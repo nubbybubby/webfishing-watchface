@@ -1,0 +1,80 @@
+{
+  "uuid": "7a39875c-bc9a-4b95-a10d-4b05a6a7f7f9",
+  "shortName": "WEBFISHING",
+  "longName": "WEBFISHING watchface",
+  "companyName": "nubbybubby",
+  "versionCode": 1,
+  "versionLabel": "1.0",
+  "sdkVersion": "3",
+  "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite"
+  ],
+  "watchapp": {
+      "watchface": true
+  },
+  "appKeys": {},
+  "resources": {
+      "media": [
+	 {
+	    "type": "bitmap",
+	    "name": "IMAGE_ICON",
+	    "file": "images/icon.png",
+	    "menuIcon": true   
+	 },
+	 {
+	    "type": "font",
+	    "name": "ACCIDENTAL_PRESIDENCY_50",
+	    "file": "fonts/accidental_presidency.ttf",
+	    "compatibility": "2.7"   
+	 },
+	 {
+            "type": "bitmap",
+            "name": "IMAGE_GOOBER_BW",
+            "file": "images/goober-bw.png"
+         },
+         {
+            "type": "bitmap",
+            "name": "IMAGE_GOOBER_COLOR",
+            "file": "images/goober-color.png"
+         },
+         {
+            "type": "bitmap",
+            "name": "IMAGE_GOOBER_COLOR_ROUND",
+            "file": "images/goober-color-round.png"
+         },
+	 {
+            "type": "bitmap",
+            "name": "IMAGE_TIME_BOX",
+            "file": "images/time-box.png"
+         },
+         {
+            "type": "bitmap",
+            "name": "IMAGE_TIME_BOX_BW",
+            "file": "images/time-box-bw.png"
+         },
+	 {
+            "type": "bitmap",
+            "name": "IMAGE_MOUTH_CONNECTED",
+            "file": "images/mouth-blconnected.png"
+         },
+	 {
+            "type": "bitmap",
+            "name": "IMAGE_MOUTH_DISCONNECTED",
+            "file": "images/mouth-bldisconnected.png"
+         },
+         {
+            "type": "bitmap",
+            "name": "IMAGE_MOUTH_CONNECTED_BW",
+            "file": "images/mouth-blconnected-bw.png"
+         },
+	 {
+            "type": "bitmap",
+            "name": "IMAGE_MOUTH_DISCONNECTED_BW",
+            "file": "images/mouth-bldisconnected-bw.png"
+         }
+      ]
+  }
+}
