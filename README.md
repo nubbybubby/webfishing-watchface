@@ -7,7 +7,7 @@ A WEBFISHING watchface for Pebble smartwatches. Supports Aplite, Basalt, Chalk a
 ## Features
 
 |  Feature | Supported? |
-| :-: | - |
+| :-: | :-: |
 | tells time | ✅ |   
 | he gets sad when bluetooth gone | ✅|  
 | goober | ✅| 
