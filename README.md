@@ -8,15 +8,25 @@ A WEBFISHING watchface for Pebble smartwatches. Supports Aplite, Basalt, Chalk a
 
 |  Feature | Supported? |
 | :-: | :-: |
-| tells time | ✅ |   
-| he gets sad when bluetooth gone | ✅|  
-| goober | ✅| 
+| tells time | ✅ |
+| he gets sad when bluetooth gone | ✅|
+| goober | ✅|
 
 ## how to build the goober
-Install [rebbletool](https://github.com/richinfante/rebbletool) if you haven't already.
+Install [uv](https://t.co/SOfNPWPmJT) and run:
+
+```
+uv tool install pebble-tool
+pebble sdk install latest
+```
+if you haven't already.
+
+Clone the repo and build:
 
 ```
 git clone https://github.com/nubbybubby/webfishing-watchface
 cd webfishing-watchface
-rebble build
+pebble build
 ```
+
+the .pbw file will be in the build directory.
