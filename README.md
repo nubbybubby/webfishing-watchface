@@ -13,7 +13,7 @@ A WEBFISHING watchface for Pebble smartwatches. Supports Aplite, Basalt, Chalk a
 | goober | ✅|
 
 ## how to build the goober
-Install [uv](https://t.co/SOfNPWPmJT) and run:
+Install [uv](https://docs.astral.sh/uv/) and run:
 
 ```
 uv tool install pebble-tool
