@@ -1,14 +1,14 @@
 #include <pebble.h>
 
 static Window *main_window;
-static TextLayer *time_layer;
 
+static TextLayer   *time_text_layer;
 static BitmapLayer *goober_layer;
 static BitmapLayer *timebox_layer;
 static BitmapLayer *mouth_connected_layer;
 static BitmapLayer *mouth_disconnected_layer;
 
-static GBitmap *goober;
+static GBitmap *goober_bitmap;
 static GBitmap *timebox_bitmap;
 static GBitmap *mouth_connected_bitmap;
 static GBitmap *mouth_disconnected_bitmap;
@@ -25,15 +25,15 @@ static void update_time() {
     // remove leading zero if 12h format
     char *s_buffer_ptr = s_buffer;
     if (s_buffer[0] == '0' && !clock_is_24h_style()) {
-       s_buffer_ptr++;
+        s_buffer_ptr++;
     }
-    text_layer_set_text(time_layer, s_buffer_ptr);
+    text_layer_set_text(time_text_layer, s_buffer_ptr);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) { update_time(); }
 
 static void bluetooth_callback(bool connected) {
-    if(connected) { // goober happy (:
+    if (connected) { // goober happy (:
         layer_set_hidden(bitmap_layer_get_layer(mouth_connected_layer), false);
         layer_set_hidden(bitmap_layer_get_layer(mouth_disconnected_layer), true);
     } else { // goober sad ):
@@ -43,57 +43,46 @@ static void bluetooth_callback(bool connected) {
 }
 
 static void show_goober() {
-    switch (PBL_PLATFORM_TYPE_CURRENT) {
-        case PlatformTypeAplite:
-        case PlatformTypeDiorite:
-	    goober = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_BW);
-        break;
-	case PlatformTypeBasalt:
-	    goober = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_COLOR);
-	break;
-	case PlatformTypeChalk:
-	    goober = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_COLOR_ROUND);
-        break;
-    }
-    bitmap_layer_set_bitmap(goober_layer, goober);
+    #if PBL_COLOR
+        #if PBL_RECT
+            #if PBL_DISPLAY_HEIGHT == 168
+                goober_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_COLOR);
+            #endif
+        #elif PBL_ROUND
+            goober_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_COLOR_ROUND);
+        #endif
+    #elif PBL_BW
+        goober_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_BW);
+    #endif
+    bitmap_layer_set_bitmap(goober_layer, goober_bitmap);
 }
 
 static void show_timebox_and_mouth() {
-    switch (PBL_PLATFORM_TYPE_CURRENT) {
-        case PlatformTypeAplite:
-	case PlatformTypeDiorite:
-            mouth_connected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_CONNECTED_BW);
-            mouth_disconnected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_DISCONNECTED_BW);
+    #if PBL_COLOR
+        mouth_connected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_CONNECTED);
+        mouth_disconnected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_DISCONNECTED);
+        timebox_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_TIME_BOX);
+    #elif PBL_BW
+        mouth_connected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_CONNECTED_BW);
+        mouth_disconnected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_DISCONNECTED_BW);
 	    timebox_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_TIME_BOX_BW);
-        break;
-	case PlatformTypeBasalt:
-        case PlatformTypeChalk:
-            mouth_connected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_CONNECTED);
-            mouth_disconnected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_DISCONNECTED);
-            timebox_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_TIME_BOX);
-        break;	
-    }
+    #endif
     bitmap_layer_set_bitmap(timebox_layer, timebox_bitmap);
     bitmap_layer_set_bitmap(mouth_connected_layer, mouth_connected_bitmap);
     bitmap_layer_set_bitmap(mouth_disconnected_layer, mouth_disconnected_bitmap);
 }
 
 static void position_mouth_and_time(GRect bounds) {
-    switch (PBL_PLATFORM_TYPE_CURRENT) {
-        case PlatformTypeAplite:
-        case PlatformTypeBasalt: 
-	case PlatformTypeDiorite: 
-            timebox_layer = bitmap_layer_create(GRect(22, 10, 100, 48));
-            mouth_connected_layer = bitmap_layer_create(GRect(45, 133, 51, 19));
-            mouth_disconnected_layer = bitmap_layer_create(GRect(45, 133, 51, 19));
-        break;
-	case PlatformTypeChalk:
-            timebox_layer = bitmap_layer_create(GRect(40, 20, 100, 48));
-            mouth_connected_layer = bitmap_layer_create(GRect(63, 139, 51, 19));
-            mouth_disconnected_layer = bitmap_layer_create(GRect(63, 139, 51, 19));
-	break;
-    }
-    time_layer = text_layer_create(GRect(1, PBL_IF_ROUND_ELSE(10, 0), bounds.size.w, 50));
+    #if PBL_RECT
+        timebox_layer = bitmap_layer_create(GRect(22, 10, 100, 48));
+        mouth_connected_layer = bitmap_layer_create(GRect(45, 133, 51, 19));
+        mouth_disconnected_layer = bitmap_layer_create(GRect(45, 133, 51, 19));
+    #elif PBL_ROUND
+        timebox_layer = bitmap_layer_create(GRect(40, 20, 100, 48));
+        mouth_connected_layer = bitmap_layer_create(GRect(63, 139, 51, 19));
+        mouth_disconnected_layer = bitmap_layer_create(GRect(63, 139, 51, 19));
+    #endif
+    time_text_layer = text_layer_create(GRect(1, PBL_IF_ROUND_ELSE(10, 0), bounds.size.w, 50));
 }
 
 static void goober_load(Window *window) {
@@ -113,19 +102,19 @@ static void goober_load(Window *window) {
     show_timebox_and_mouth();
 
     // show time text
-    layer_add_child(window_layer, text_layer_get_layer(time_layer));
-    text_layer_set_background_color(time_layer, GColorClear);
-    text_layer_set_text_color(time_layer, GColorWhite);
-    text_layer_set_text(time_layer, "4:20"); // haha funny number please laugh
-    text_layer_set_text_alignment(time_layer, GTextAlignmentCenter);
+    layer_add_child(window_layer, text_layer_get_layer(time_text_layer));
+    text_layer_set_background_color(time_text_layer, GColorClear);
+    text_layer_set_text_color(time_text_layer, GColorWhite);
+    text_layer_set_text(time_text_layer, "4:20"); // haha funny number please laugh
+    text_layer_set_text_alignment(time_text_layer, GTextAlignmentCenter);
     time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_ACCIDENTAL_PRESIDENCY_50));
-    text_layer_set_font(time_layer, time_font);
+    text_layer_set_font(time_text_layer, time_font);
     
     bluetooth_callback(connection_service_peek_pebble_app_connection());
 }
 
 static void goober_unload(Window *window) {
-    gbitmap_destroy(goober);
+    gbitmap_destroy(goober_bitmap);
     gbitmap_destroy(timebox_bitmap);
     gbitmap_destroy(mouth_connected_bitmap);
     gbitmap_destroy(mouth_disconnected_bitmap);
@@ -135,7 +124,7 @@ static void goober_unload(Window *window) {
     bitmap_layer_destroy(mouth_connected_layer);
     bitmap_layer_destroy(mouth_disconnected_layer);
 
-    text_layer_destroy(time_layer);
+    text_layer_destroy(time_text_layer);
     fonts_unload_custom_font(time_font);
 }
 
