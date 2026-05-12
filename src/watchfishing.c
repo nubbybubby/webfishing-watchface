@@ -47,9 +47,15 @@ static void show_goober() {
         #if PBL_RECT
             #if PBL_DISPLAY_HEIGHT == 168
                 goober_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_COLOR);
+            #elif PBL_DISPLAY_HEIGHT == 228
+                goober_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_COLOR_HIRES);
             #endif
         #elif PBL_ROUND
-            goober_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_COLOR_ROUND);
+            #if PBL_DISPLAY_HEIGHT == 180
+                goober_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_COLOR_ROUND);
+            #elif PBL_DISPLAY_HEIGHT == 260
+                goober_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_COLOR_HIRES_ROUND);
+            #endif
         #endif
     #elif PBL_BW
         goober_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_GOOBER_BW);
@@ -59,9 +65,15 @@ static void show_goober() {
 
 static void show_timebox_and_mouth() {
     #if PBL_COLOR
+        #if PBL_DISPLAY_HEIGHT < 180
         mouth_connected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_CONNECTED);
         mouth_disconnected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_DISCONNECTED);
         timebox_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_TIME_BOX);
+        #else
+        mouth_connected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_CONNECTED_HIRES);
+        mouth_disconnected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_DISCONNECTED_HIRES);
+        timebox_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_TIME_BOX_HIRES);
+        #endif
     #elif PBL_BW
         mouth_connected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_CONNECTED_BW);
         mouth_disconnected_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MOUTH_DISCONNECTED_BW);
@@ -74,15 +86,32 @@ static void show_timebox_and_mouth() {
 
 static void position_mouth_and_time(GRect bounds) {
     #if PBL_RECT
-        timebox_layer = bitmap_layer_create(GRect(22, 10, 100, 48));
-        mouth_connected_layer = bitmap_layer_create(GRect(45, 133, 51, 19));
-        mouth_disconnected_layer = bitmap_layer_create(GRect(45, 133, 51, 19));
+        #if PBL_DISPLAY_HEIGHT == 168
+            timebox_layer = bitmap_layer_create(GRect(22, 10, 100, 48));
+            mouth_connected_layer = bitmap_layer_create(GRect(45, 133, 51, 19));
+            mouth_disconnected_layer = bitmap_layer_create(GRect(45, 133, 51, 19));
+        #elif PBL_DISPLAY_HEIGHT == 228
+            timebox_layer = bitmap_layer_create(GRect(38, 19, 124, 60));
+            mouth_connected_layer = bitmap_layer_create(GRect(67, 171, 63, 22));
+            mouth_disconnected_layer = bitmap_layer_create(GRect(67, 171, 63, 22));
+        #endif
     #elif PBL_ROUND
-        timebox_layer = bitmap_layer_create(GRect(40, 20, 100, 48));
-        mouth_connected_layer = bitmap_layer_create(GRect(63, 139, 51, 19));
-        mouth_disconnected_layer = bitmap_layer_create(GRect(63, 139, 51, 19));
+        #if PBL_DISPLAY_HEIGHT == 180
+            timebox_layer = bitmap_layer_create(GRect(40, 20, 100, 48));
+            mouth_connected_layer = bitmap_layer_create(GRect(63, 139, 51, 19));
+            mouth_disconnected_layer = bitmap_layer_create(GRect(63, 139, 51, 19));
+        #elif PBL_DISPLAY_HEIGHT == 260
+            timebox_layer = bitmap_layer_create(GRect(68, 35, 124, 60));
+            mouth_connected_layer = bitmap_layer_create(GRect(97, 187, 63, 22));
+            mouth_disconnected_layer = bitmap_layer_create(GRect(97, 187, 63, 22));
+        #endif
     #endif
-    time_text_layer = text_layer_create(GRect(1, PBL_IF_ROUND_ELSE(10, 0), bounds.size.w, 50));
+
+    #if PBL_DISPLAY_HEIGHT < 180
+        time_text_layer = text_layer_create(GRect(1, PBL_IF_ROUND_ELSE(10, 0), bounds.size.w, 50));
+    #else
+        time_text_layer = text_layer_create(GRect(1, PBL_IF_ROUND_ELSE(23, 7), bounds.size.w, 62));
+    #endif
 }
 
 static void goober_load(Window *window) {
@@ -107,7 +136,11 @@ static void goober_load(Window *window) {
     text_layer_set_text_color(time_text_layer, GColorWhite);
     text_layer_set_text(time_text_layer, "4:20"); // haha funny number please laugh
     text_layer_set_text_alignment(time_text_layer, GTextAlignmentCenter);
-    time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_ACCIDENTAL_PRESIDENCY_50));
+    #if PBL_DISPLAY_HEIGHT < 180
+        time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_ACCIDENTAL_PRESIDENCY_50));
+    #else
+        time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_ACCIDENTAL_PRESIDENCY_60));
+    #endif
     text_layer_set_font(time_text_layer, time_font);
     
     bluetooth_callback(connection_service_peek_pebble_app_connection());
