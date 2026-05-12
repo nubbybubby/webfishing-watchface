@@ -110,7 +110,7 @@ static void position_mouth_and_time(GRect bounds) {
     #if PBL_DISPLAY_HEIGHT < 180
         time_text_layer = text_layer_create(GRect(1, PBL_IF_ROUND_ELSE(10, 0), bounds.size.w, 50));
     #else
-        time_text_layer = text_layer_create(GRect(1, PBL_IF_ROUND_ELSE(23, 7), bounds.size.w, 62));
+        time_text_layer = text_layer_create(GRect(0, PBL_IF_ROUND_ELSE(23, 7), bounds.size.w, 62));
     #endif
 }
 
