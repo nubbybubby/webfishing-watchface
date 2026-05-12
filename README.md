@@ -1,8 +1,8 @@
 # WEBFISHING watchface
 
-A WEBFISHING watchface for Pebble smartwatches. Supports Aplite, Basalt, Chalk and Diorite.
+A WEBFISHING watchface for Pebble smartwatches.
 
-![Aplite](screenshots/bw.png) ![Basalt](screenshots/color.png) ![Chalk](screenshots/round.png)
+![Aplite](screenshots/bw.png) ![Basalt](screenshots/color.png) ![Chalk](screenshots/round.png) ![Emery](screenshots/color_hires.png) ![Gabbro](screenshots/round_hires.png)
 
 ## Features
 
