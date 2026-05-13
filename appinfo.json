@@ -30,83 +30,145 @@
 	        "type": "font",
 	        "name": "ACCIDENTAL_PRESIDENCY_50",
 	        "file": "fonts/accidental_presidency.ttf",
-	        "compatibility": "2.7"   
+	        "compatibility": "2.7",
+            "targetPlatforms": [ 
+                "aplite",
+                "basalt",
+                "chalk",
+                "diorite"
+            ]
 	    },
         {
 	        "type": "font",
 	        "name": "ACCIDENTAL_PRESIDENCY_60",
 	        "file": "fonts/accidental_presidency.ttf",
-	        "compatibility": "2.7"   
+	        "compatibility": "2.7",
+            "targetPlatforms": [ 
+                "emery",
+                "gabbro"
+            ]
 	    },
 	    {
             "type": "bitmap",
             "name": "IMAGE_GOOBER_BW",
-            "file": "images/goober-bw.png"
+            "file": "images/goober-bw.png",
+            "targetPlatforms": [ 
+                "aplite",
+                "diorite"
+            ]
         },
         {
             "type": "bitmap",
             "name": "IMAGE_GOOBER_COLOR",
-            "file": "images/goober-color.png"
+            "file": "images/goober-color.png",
+            "targetPlatforms": [ 
+                "basalt"
+            ]
         },
         {
             "type": "bitmap",
             "name": "IMAGE_GOOBER_COLOR_ROUND",
-            "file": "images/goober-color-round.png"
+            "file": "images/goober-color-round.png",
+            "targetPlatforms": [ 
+                "chalk"
+            ]
         },
         {
             "type": "bitmap",
             "name": "IMAGE_GOOBER_COLOR_HIRES",
-            "file": "images/goober-color-hires.png"
+            "file": "images/goober-color-hires.png",
+            "targetPlatforms": [ 
+                "emery"
+            ]
         },
         {
             "type": "bitmap",
             "name": "IMAGE_GOOBER_COLOR_HIRES_ROUND",
-            "file": "images/goober-color-hires-round.png"
+            "file": "images/goober-color-hires-round.png",
+            "targetPlatforms": [ 
+                "gabbro"
+            ]
         },
 	    {
             "type": "bitmap",
             "name": "IMAGE_TIME_BOX",
-            "file": "images/time-box.png"
+            "file": "images/time-box.png",
+            "targetPlatforms": [ 
+                "basalt",
+                "chalk"
+            ]
         },
         {
             "type": "bitmap",
             "name": "IMAGE_TIME_BOX_HIRES",
-            "file": "images/time-box-hires.png"
+            "file": "images/time-box-hires.png",
+            "targetPlatforms": [ 
+                "emery",
+                "gabbro"
+            ]
         },
         {
             "type": "bitmap",
             "name": "IMAGE_TIME_BOX_BW",
-            "file": "images/time-box-bw.png"
+            "file": "images/time-box-bw.png",
+            "targetPlatforms": [ 
+                "aplite",
+                "diorite"
+            ]
         },
 	    {
             "type": "bitmap",
             "name": "IMAGE_MOUTH_CONNECTED",
-            "file": "images/mouth-blconnected.png"
+            "file": "images/mouth-blconnected.png",
+            "targetPlatforms": [ 
+                "basalt",
+                "chalk"
+            ]
         },
         {
             "type": "bitmap",
             "name": "IMAGE_MOUTH_DISCONNECTED",
-            "file": "images/mouth-bldisconnected.png"
+            "file": "images/mouth-bldisconnected.png",
+            "targetPlatforms": [ 
+                "basalt",
+                "chalk"
+            ]
         },
         {
             "type": "bitmap",
             "name": "IMAGE_MOUTH_CONNECTED_HIRES",
-            "file": "images/mouth-blconnected-hires.png"
+            "file": "images/mouth-blconnected-hires.png",
+            "targetPlatforms": [ 
+                "emery",
+                "gabbro"
+            ]
         },
         {
             "type": "bitmap",
             "name": "IMAGE_MOUTH_DISCONNECTED_HIRES",
-            "file": "images/mouth-bldisconnected-hires.png"
+            "file": "images/mouth-bldisconnected-hires.png",
+            "targetPlatforms": [ 
+                "emery",
+                "gabbro"
+            ]
         },
         {
             "type": "bitmap",
             "name": "IMAGE_MOUTH_CONNECTED_BW",
-            "file": "images/mouth-blconnected-bw.png"
+            "file": "images/mouth-blconnected-bw.png",
+            "targetPlatforms": [ 
+                "aplite",
+                "diorite"
+            ]
         },
 	    {
             "type": "bitmap",
             "name": "IMAGE_MOUTH_DISCONNECTED_BW",
-            "file": "images/mouth-bldisconnected-bw.png"
+            "file": "images/mouth-bldisconnected-bw.png",
+            "targetPlatforms": [ 
+                "aplite",
+                "diorite"
+            ]
         }
       ]
   }
