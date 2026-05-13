@@ -33,13 +33,8 @@ static void update_time() {
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) { update_time(); }
 
 static void bluetooth_callback(bool connected) {
-    if (connected) { // goober happy (:
-        layer_set_hidden(bitmap_layer_get_layer(mouth_connected_layer), false);
-        layer_set_hidden(bitmap_layer_get_layer(mouth_disconnected_layer), true);
-    } else { // goober sad ):
-        layer_set_hidden(bitmap_layer_get_layer(mouth_connected_layer), true);
-        layer_set_hidden(bitmap_layer_get_layer(mouth_disconnected_layer), false);
-    }
+    layer_set_hidden(bitmap_layer_get_layer(mouth_connected_layer), !connected);
+    layer_set_hidden(bitmap_layer_get_layer(mouth_disconnected_layer), connected);
 }
 
 static void show_goober() {
